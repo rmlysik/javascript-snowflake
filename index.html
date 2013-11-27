@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Snowflake</title>
+<style>
+html, body {
+	height:100%;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: Arial, Verdana;
+}
+
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -320px;
+	margin-top: -320px;
+}
+</style>
+<script type="text/javascript">
+/**
+* Draws a snowflake
+*/
+function draw() {
+	var canvas = document.getElementById('myCanvas');
+	if (canvas.getContext) {
+		var context = canvas.getContext('2d');
+		var width = canvas.width;
+		var height = canvas.height;
+		context.lineWidth = 20;
+		context.lineCap = 'round';
+		context.fillStyle = "#162D50";
+		context.strokeStyle = "#FFFFFF";
+		context.fillRect(0,0,width,height);
+		context.translate(width/2,height/2);
+		for(var count = 0; count < 6; count++) {
+			context.save();		
+			drawSegment(context, 100, 40);
+			drawSegment(context, 100, 80);
+			drawSegment(context, 100, 0);
+			context.restore();			
+			context.rotate(Math.PI/3);
+		}
+	}
+}
+
+/**
+* Draws line whose length is segmentLength in pixels and translates the current context 
+* to the line end-point. If branchLength is greater than zero, calls drawBranch 
+* function to draw lines extending at 30 degrees from segment end-point.
+* @param {context} context The 2D context of the canvas element.
+* @param {int} segmentLength The length of the segment in pixels.
+* @param {int} branchLength The length of the branches in pixels.
+*/
+function drawSegment(context, segmentLength, branchLength) {
+	context.beginPath();
+	context.moveTo(0,0);
+	context.lineTo(segmentLength,0);
+	context.stroke();
+	context.translate(segmentLength,0);
+	if (branchLength > 0) {
+		drawBranch(context, branchLength, 1);
+		drawBranch(context, branchLength, -1);
+	}
+}
+
+/**
+* Rotates the current context 30 degrees and draws a line whose
+* length is branchLength in pixels.
+* @param {context} context The 2D context of the canvas element.
+* @param {int} branchLength The length of the branches in pixels.
+* @param {int} direction Permitted values are 1 (clockwise) and -1 (counter-clockwise).
+*/
+function drawBranch(context, branchLength, direction) {
+	context.save();
+	context.rotate(direction*Math.PI/3);
+	context.moveTo(0,0);
+	context.lineTo(branchLength,0);
+	context.stroke();
+	context.restore();
+}
+
+</script>
+</head>
+<body onload="draw();">
+<div class="centered">
+<canvas width="640" height="640" id="myCanvas"></canvas>
+</div>
+</body>
+</html>
