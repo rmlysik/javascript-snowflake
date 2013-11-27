@@ -1,7 +1,7 @@
-# Description
+## Description
 
-A simple JavaScript program that draws a snowflake using the canvas element as shown below:
+A simple JavaScript program that draws a snowflake using the canvas element.
 
-![](snowflake.png?raw=true)
+![](images/snowflake.PNG)
 
-This program was meant to serve as an introduction to JavaScript programming. 
+This program is meant to serve as an introduction to JavaScript programming using the drawing commands available through the canvas object. A step-by-step tutorial for this project is available [here](http://www.robertlysik.com/?p=536).
